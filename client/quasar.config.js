@@ -12,7 +12,7 @@
 const { configure } = require('quasar/wrappers');
 
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function ( ctx ) {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
@@ -51,24 +51,17 @@ module.exports = configure(function (/* ctx */) {
         node: 'node20'
       },
 
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
+      env: {
+        SERVER_URL: ctx.dev ? 'http://localhost:3000' : 'http://localhost:3000',
+        CREATOR_NAME: 'Henning Seip',
+        CREATOR_EMAIL: 'henning@candogram.com',
+        LINKEDIN: 'https://www.linkedin.com/in/henningseip/'
+      },
+      distDir: '../server/public',
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
-
-      // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
-
-      // publicPath: '/',
-      // analyze: true,
-      // env: {},
-      // rawDefine: {}
-      // ignorePublicFolder: true,
-      // minify: false,
-      // polyfillModulePreload: true,
-      // distDir
-
-      // extendViteConf (viteConf) {},
-      // viteVuePluginOptions: {},
 
       vitePlugins: [
         ['vite-plugin-checker', {
@@ -78,7 +71,11 @@ module.exports = configure(function (/* ctx */) {
         }, { server: false }]
       ]
     },
-
+    htmlVariables: {
+      productName: 'BAHS Student Job Survey App',
+      productDescription: 'The Bronx Aerospace High School Student Survey App collects job preferences from high school students.'
+    },
+ 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
@@ -100,7 +97,9 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
